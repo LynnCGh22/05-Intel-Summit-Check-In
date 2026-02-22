@@ -795,3 +795,14 @@ a:focus,
     outline: 3px solid #00c6ff;
     outline-offset: 2px;
 }
+
+#checkInForm {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.progress-bar {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
