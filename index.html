@@ -457,19 +457,14 @@
 <section class="container my-5">
   <div class="row justify-content-center">
     <div class="col-lg-8">
-
       <div class="p-5 border rounded shadow bg-light text-center">
-
         <h3 class="mb-3 fw-bold" data-i18n="newsletter_title">
           Subscribe to Intel’s Sustainability Newsletter
         </h3>
-
         <p class="mb-4 text-muted" data-i18n="newsletter_desc">
           Stay updated on climate action, renewable energy initiatives, and sustainability milestones.
         </p>
-
         <form class="row g-3 justify-content-center needs-validation" novalidate>
-
           <div class="col-md-6">
             <input type="text"
                    class="form-control"
@@ -499,83 +494,85 @@
               Subscribe
             </button>
           </div>
-
         </form>
-      <section class="container my-5">
-  <h2 class="text-center mb-4">Choose Your Team</h2>
-  <div class="row g-4">
-
-    <!-- Team Water Wise -->
-    <div class="col-md-4">
-      <div class="p-4 h-100 border rounded bg-primary bg-opacity-25 shadow-sm text-center">
-        <h4>Team Water Wise</h4>
-        <p>Focused on water conservation and restoration efforts.</p>
-        <p><strong>Members: <span id="waterCount">0</span></strong></p>
-      </div>
-    </div>
-
-    <!-- Team Net Zero -->
-    <div class="col-md-4">
-      <div class="p-4 h-100 border rounded bg-success bg-opacity-25 shadow-sm text-center">
-        <h4>Team Net Zero</h4>
-        <p>Committed to reducing carbon emissions and achieving net-zero goals.</p>
-        <p><strong>Members: <span id="netzeroCount">0</span></strong></p>
-      </div>
-    </div>
-
-    <!-- Team Renewables -->
-    <div class="col-md-4">
-      <div class="p-4 h-100 border rounded bg-info bg-opacity-25 shadow-sm text-center">
-        <h4>Team Renewables</h4>
-        <p>Advancing renewable energy adoption and innovation.</p>
-        <p><strong>Members: <span id="renewablesCount">0</span></strong></p>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Attendee list shown under the team counters -->
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="p-3 border rounded bg-light shadow-sm">
-        <h5 class="mb-3">Registered Attendees</h5>
-        <!-- JavaScript will add each attendee as: Name — Team -->
-        <ul id="attendeeList" class="list-group"></ul>
+        </form>
       </div>
     </div>
   </div>
 </section>
 
-  <section class="container my-5">
-  <h2 class="text-center mb-4">Attendee Check‑In</h2>
+<!-- Intel Sustainability Summit Sign-Up Form Section -->
+<section class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="p-5 border rounded shadow bg-light">
+        <h2 class="text-center mb-4 fw-bold text-dark">Intel's Sustainability Summit Sign-Up Form</h2>
 
-  <form id="checkInForm" class="p-4 border rounded bg-light shadow-sm">
+        <h3 class="text-center mb-4">Choose Your Team</h3>
+        <div class="row g-4">
 
-    <div class="mb-3">
-      <label for="attendeeName" class="form-label">Full Name</label>
-      <input type="text" id="attendeeName" class="form-control" required>
-    </div>
+          <!-- Team Water Wise -->
+          <div class="col-md-4">
+            <div class="p-4 h-100 border rounded bg-primary bg-opacity-25 shadow-sm text-center">
+              <h4>Team Water Wise</h4>
+              <p>Focused on water conservation and restoration efforts.</p>
+              <p><strong>Members: <span id="waterCount">0</span></strong></p>
+            </div>
+          </div>
 
-    <div class="mb-3">
-      <label for="teamSelect" class="form-label">Select Your Team</label>
-      <select id="teamSelect" class="form-select" required>
-        <option value="" disabled selected>Choose a team...</option>
-        <option value="water">Team Water Wise</option>
-        <option value="netzero">Team Net Zero</option>
-        <option value="renewables">Team Renewables</option>
-      </select>
-    </div>
+          <!-- Team Net Zero -->
+          <div class="col-md-4">
+            <div class="p-4 h-100 border rounded bg-success bg-opacity-25 shadow-sm text-center">
+              <h4>Team Net Zero</h4>
+              <p>Committed to reducing carbon emissions and achieving net-zero goals.</p>
+              <p><strong>Members: <span id="netzeroCount">0</span></strong></p>
+            </div>
+          </div>
 
-    <button type="submit" id="checkInBtn" class="btn btn-primary w-100">Check In</button>
+          <!-- Team Renewables -->
+          <div class="col-md-4">
+            <div class="p-4 h-100 border rounded bg-info bg-opacity-25 shadow-sm text-center">
+              <h4>Team Renewables</h4>
+              <p>Advancing renewable energy adoption and innovation.</p>
+              <p><strong>Members: <span id="renewablesCount">0</span></strong></p>
+            </div>
+          </div>
+        </div>
 
-    <!-- Friendly status message after check-in -->
-    <p id="greeting" class="mt-3 mb-0 text-center"></p>
+        <!-- Attendee list shown under the team counters -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="p-3 border rounded bg-light shadow-sm">
+              <h5 class="mb-3">Registered Attendees</h5>
+              <!-- JavaScript will add each attendee as: Name — Team -->
+              <ul id="attendeeList" class="list-group"></ul>
+            </div>
+          </div>
+        </div>
 
-  </form>
-</section>
+        <h3 class="text-center my-4">Attendee Check‑In</h3>
+        <form id="checkInForm" class="p-4 border rounded bg-light shadow-sm">
+          <div class="mb-3">
+            <label for="attendeeName" class="form-label">Full Name</label>
+            <input type="text" id="attendeeName" class="form-control" required>
+          </div>
 
+          <div class="mb-3">
+            <label for="teamSelect" class="form-label">Select Your Team</label>
+            <select id="teamSelect" class="form-select" required>
+              <option value="" disabled selected>Choose a team...</option>
+              <option value="water">Team Water Wise</option>
+              <option value="netzero">Team Net Zero</option>
+              <option value="renewables">Team Renewables</option>
+            </select>
+          </div>
+
+          <button type="submit" id="checkInBtn" class="btn btn-primary w-100">Check In</button>
+
+          <!-- Friendly status message after check-in -->
+          <p id="greeting" class="mt-3 mb-0 text-center"></p>
+        </form>
       </div>
-
     </div>
   </div>
 </section>
