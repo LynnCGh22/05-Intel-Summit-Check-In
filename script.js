@@ -6,16 +6,17 @@ var attendeeCountEl;
 var progressBar;
 var attendeeListEl;
 var waterCountEl;
-var zeroCountEl;
-var powerCountEl;
+var netzeroCountEl;
+var renewablesCountEl;
+var resetCounterBtn;
 
 // Track attendance
 let count = 0;
 const maxCount = 50; // Maximum number of attendees
 let teams = {
   water: 0,
-  zero: 0,
-  power: 0,
+  netzero: 0,
+  renewables: 0,
 };
 let attendees = []; // array of { name, team, teamName }
 
@@ -71,6 +72,45 @@ function saveState() {
   }
 }
 
+// Reset all saved check-in data and UI back to zero
+function resetAllData() {
+  count = 0;
+  teams = {
+    water: 0,
+    netzero: 0,
+    renewables: 0,
+  };
+  attendees = [];
+
+  if (waterCountEl) waterCountEl.textContent = "0";
+  if (netzeroCountEl) netzeroCountEl.textContent = "0";
+  if (renewablesCountEl) renewablesCountEl.textContent = "0";
+
+  updateProgressUI();
+  renderAttendeeList();
+
+  try {
+    localStorage.removeItem(STORAGE_KEYS.count);
+    localStorage.removeItem(STORAGE_KEYS.teams);
+    localStorage.removeItem(STORAGE_KEYS.attendees);
+  } catch (e) {
+    console.warn("Could not clear localStorage", e);
+  }
+
+  var checkInBtn = document.getElementById("checkInBtn");
+  if (checkInBtn) checkInBtn.disabled = false;
+  if (nameInput) nameInput.disabled = false;
+  if (teamSelect) teamSelect.disabled = false;
+
+  if (form) form.reset();
+
+  var greeting = document.getElementById("greeting");
+  if (greeting) {
+    greeting.textContent = "Counter reset. You can check in again.";
+    greeting.classList.add("success-message", "greeting-show");
+  }
+}
+
 // Render the attendee list in the DOM
 function renderAttendeeList() {
   if (!attendeeListEl) return;
@@ -94,6 +134,7 @@ function updateProgressUI() {
     var percentage = Math.round((count / maxCount) * 100) + "%";
     progressBar.style.width = percentage;
     progressBar.setAttribute("aria-valuenow", String(count));
+    progressBar.textContent = count + " / " + maxCount + " Attendees";
   }
 }
 
@@ -102,7 +143,7 @@ function loadState() {
   try {
     var storedCount = parseInt(localStorage.getItem(STORAGE_KEYS.count), 10);
     if (!isNaN(storedCount)) {
-      count = storedCount;
+      count = Math.min(storedCount, maxCount);
     }
     var storedTeams = JSON.parse(
       localStorage.getItem(STORAGE_KEYS.teams) || "null",
@@ -122,8 +163,9 @@ function loadState() {
 
   // Update team counters
   if (waterCountEl) waterCountEl.textContent = String(teams.water || 0);
-  if (zeroCountEl) zeroCountEl.textContent = String(teams.zero || 0);
-  if (powerCountEl) powerCountEl.textContent = String(teams.power || 0);
+  if (netzeroCountEl) netzeroCountEl.textContent = String(teams.netzero || 0);
+  if (renewablesCountEl)
+    renewablesCountEl.textContent = String(teams.renewables || 0);
 
   // Update progress UI and attendee list
   updateProgressUI();
@@ -145,11 +187,12 @@ function init() {
     nameInput = document.getElementById("attendeeName");
     teamSelect = document.getElementById("teamSelect");
     attendeeCountEl = document.getElementById("attendeeCount");
-    progressBar = document.getElementById("progressBar");
+    progressBar = document.getElementById("attendanceBar");
     attendeeListEl = document.getElementById("attendeeList");
     waterCountEl = document.getElementById("waterCount");
-    zeroCountEl = document.getElementById("zeroCount");
-    powerCountEl = document.getElementById("powerCount");
+    netzeroCountEl = document.getElementById("netzeroCount");
+    renewablesCountEl = document.getElementById("renewablesCount");
+    resetCounterBtn = document.getElementById("resetCounterBtn");
 
     if (!form) {
       showFatalError(
@@ -177,9 +220,13 @@ function init() {
       }
 
       // Get form values
-      const name = nameInput.value;
+      const name = nameInput.value.trim();
       const team = teamSelect.value;
       const teamName = teamSelect.selectedOptions[0].text; // Get the text of the selected option
+
+      if (!name || !team) {
+        return;
+      }
 
       console.log(name, team, teamName); // Log the values to the console (for testing)
 
@@ -199,10 +246,10 @@ function init() {
       teams[team] = teams[team] + 1;
       if (team === "water" && waterCountEl)
         waterCountEl.textContent = String(teams[team]);
-      if (team === "zero" && zeroCountEl)
-        zeroCountEl.textContent = String(teams[team]);
-      if (team === "power" && powerCountEl)
-        powerCountEl.textContent = String(teams[team]);
+      if (team === "netzero" && netzeroCountEl)
+        netzeroCountEl.textContent = String(teams[team]);
+      if (team === "renewables" && renewablesCountEl)
+        renewablesCountEl.textContent = String(teams[team]);
 
       // Add attendee to list and save
       attendees.push({ name: name, team: team, teamName: teamName });
@@ -241,6 +288,13 @@ function init() {
 
       form.reset();
     });
+
+    // Reset button: clear all counters and start fresh
+    if (resetCounterBtn) {
+      resetCounterBtn.addEventListener("click", function () {
+        resetAllData();
+      });
+    }
 
     // Load saved state when script runs
     loadState();
