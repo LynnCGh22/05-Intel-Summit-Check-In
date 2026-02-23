@@ -533,6 +533,17 @@
     </div>
 
   </div>
+
+  <!-- Attendee list shown under the team counters -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="p-3 border rounded bg-light shadow-sm">
+        <h5 class="mb-3">Registered Attendees</h5>
+        <!-- JavaScript will add each attendee as: Name — Team -->
+        <ul id="attendeeList" class="list-group"></ul>
+      </div>
+    </div>
+  </div>
 </section>
 
   <section class="container my-5">
@@ -593,6 +604,9 @@
     Reset Counter
   </button>
 </div>
+
+<!-- Celebration message shown when check-in goal is reached -->
+<div id="celebrationMessage" class="celebration-banner" aria-live="polite"></div>
 
   <!-- Disclaimer Footer -->
   <footer class="bg-dark text-light pt-4 pb-3 mt-5">

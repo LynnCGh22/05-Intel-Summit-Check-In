@@ -9,6 +9,7 @@ var waterCountEl;
 var netzeroCountEl;
 var renewablesCountEl;
 var resetCounterBtn;
+var celebrationMessageEl;
 
 // Track attendance
 let count = 0;
@@ -72,6 +73,70 @@ function saveState() {
   }
 }
 
+// Convert team key to friendly team name
+function getTeamLabel(teamKey) {
+  if (teamKey === "water") return "Team Water Wise";
+  if (teamKey === "netzero") return "Team Net Zero";
+  if (teamKey === "renewables") return "Team Renewables";
+  return teamKey;
+}
+
+// Return winning team names and whether there is a tie
+function getWinningTeamInfo() {
+  var teamKeys = Object.keys(teams);
+  var highestCount = 0;
+
+  for (var i = 0; i < teamKeys.length; i++) {
+    var key = teamKeys[i];
+    highestCount = Math.max(highestCount, teams[key] || 0);
+  }
+
+  var winnerKeys = [];
+  for (var j = 0; j < teamKeys.length; j++) {
+    var teamKey = teamKeys[j];
+    if ((teams[teamKey] || 0) === highestCount && highestCount > 0) {
+      winnerKeys.push(teamKey);
+    }
+  }
+
+  var winnerNames = winnerKeys.map(getTeamLabel);
+  var winnerText = winnerNames.join(" & ");
+
+  return {
+    highestCount: highestCount,
+    winnerText: winnerText,
+    isTie: winnerNames.length > 1,
+  };
+}
+
+// Show celebration banner when the attendee goal is reached
+function updateCelebrationUI() {
+  if (!celebrationMessageEl) return;
+
+  if (count >= maxCount) {
+    var winnerInfo = getWinningTeamInfo();
+    var winnerLabel = winnerInfo.isTie ? "Winning teams" : "Winning team";
+
+    celebrationMessageEl.innerHTML =
+      "🎉 Goal reached! " +
+      winnerLabel +
+      ': <span class="winner-name">' +
+      (winnerInfo.winnerText || "No team yet") +
+      "</span>";
+
+    celebrationMessageEl.classList.add("show");
+  } else {
+    celebrationMessageEl.classList.remove("show");
+    celebrationMessageEl.textContent = "";
+  }
+}
+
+// Custom code hook (runs after a successful check-in submit)
+// Edit this function to add your own behavior.
+function onCheckInSubmit(checkInData) {
+  console.log("Custom submit hook:", checkInData);
+}
+
 // Reset all saved check-in data and UI back to zero
 function resetAllData() {
   count = 0;
@@ -109,15 +174,28 @@ function resetAllData() {
     greeting.textContent = "Counter reset. You can check in again.";
     greeting.classList.add("success-message", "greeting-show");
   }
+
+  updateCelebrationUI();
 }
 
 // Render the attendee list in the DOM
 function renderAttendeeList() {
   if (!attendeeListEl) return;
   attendeeListEl.innerHTML = "";
+
+  // Show a friendly placeholder when there are no attendees yet
+  if (attendees.length === 0) {
+    var emptyLi = document.createElement("li");
+    emptyLi.className = "list-group-item text-muted";
+    emptyLi.textContent = "No attendees yet.";
+    attendeeListEl.appendChild(emptyLi);
+    return;
+  }
+
   for (var i = 0; i < attendees.length; i++) {
     var a = attendees[i];
     var li = document.createElement("li");
+    li.className = "list-group-item";
     li.textContent = a.name;
     var span = document.createElement("span");
     span.className = "attendee-team";
@@ -150,12 +228,21 @@ function loadState() {
     );
     if (storedTeams && typeof storedTeams === "object") {
       teams = Object.assign(teams, storedTeams);
+      // Ensure team totals are always valid numbers
+      teams.water = parseInt(teams.water, 10) || 0;
+      teams.netzero = parseInt(teams.netzero, 10) || 0;
+      teams.renewables = parseInt(teams.renewables, 10) || 0;
     }
     var storedAttendees = JSON.parse(
       localStorage.getItem(STORAGE_KEYS.attendees) || "null",
     );
     if (Array.isArray(storedAttendees)) {
       attendees = storedAttendees;
+    }
+
+    // If count was not saved, rebuild it from attendee list as fallback
+    if (isNaN(storedCount)) {
+      count = Math.min(attendees.length, maxCount);
     }
   } catch (e) {
     console.warn("Could not load saved state", e);
@@ -178,6 +265,9 @@ function loadState() {
     if (nameInput) nameInput.disabled = true;
     if (teamSelect) teamSelect.disabled = true;
   }
+
+  // Show celebration if loaded state already reached the goal
+  updateCelebrationUI();
 }
 
 // Initialize after DOM is ready
@@ -193,6 +283,7 @@ function init() {
     netzeroCountEl = document.getElementById("netzeroCount");
     renewablesCountEl = document.getElementById("renewablesCount");
     resetCounterBtn = document.getElementById("resetCounterBtn");
+    celebrationMessageEl = document.getElementById("celebrationMessage");
 
     if (!form) {
       showFatalError(
@@ -216,6 +307,8 @@ function init() {
             greetingFull.classList.remove("greeting-show");
           }, 3000);
         }
+
+        updateCelebrationUI();
         return;
       }
 
@@ -256,6 +349,15 @@ function init() {
       renderAttendeeList();
       saveState();
 
+      // Run your custom code for each successful check-in submit
+      onCheckInSubmit({
+        name: name,
+        team: team,
+        teamName: teamName,
+        totalRegistered: count,
+        teamRegistered: teams[team],
+      });
+
       // Welcome message
       const message = `Thanks, ${name}! You are registered for ${teamName}.`;
       console.log(message);
@@ -285,6 +387,8 @@ function init() {
           greeting.classList.add("success-message", "greeting-show");
         }
       }
+
+      updateCelebrationUI();
 
       form.reset();
     });
