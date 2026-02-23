@@ -4,6 +4,7 @@ const nameInput = document.getElementById("attendeeName");
 const teamSelect = document.getElementById("teamSelect");
 const attendanceBar = document.getElementById("attendanceBar"); 
 const removeBtn = document.getElementById("removeLast");
+const greetingMessage = document.getElementById("greetingMessage");
 
 // Track attendance
 let count = 0; // Start with zero attendees
@@ -47,15 +48,16 @@ form.addEventListener("submit", function(event) {
   teamCounter.textContent = parseInt(teamCounter.textContent) + 1; // Increment team count by one
 
   // Show welcome message
-  const message = `Welcome, ${name} from ${teamName}!`;
+  const message = `Welcome, ${name}! You have checked in for the ${teamName} team.`;
+  greetingMessage.textContent = message;
   console.log(message);
 
   // Add attendee to the list
   attendees.push({ name, team });
 
   // Update team counter 
-  const teamCounter = document.getElementById(team + "Count"); 
-  teamCounter.textContent = parseInt(teamCounter.textContent) + 1; 
+  let selectedTeamCounter = document.getElementById(team + "Count");
+  selectedTeamCounter.textContent = parseInt(selectedTeamCounter.textContent) + 1; 
   // Update progress bar 
   updateProgressBar();
 
