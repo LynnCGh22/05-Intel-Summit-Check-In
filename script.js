@@ -2,52 +2,34 @@
 const form = document.getElementById("checkInForm");
 const nameInput = document.getElementById("attendeeName");
 const teamSelect = document.getElementById("teamSelect");
-const attendanceBar = document.getElementById("attendanceBar");
-const greetingMessage = document.getElementById("greetingMessage");
 
-// Attendance tracking
-let attendees = [];
-const maxCount = 50;
+// Track attendance
+let count = 0;
+const maxCount = 50; // Maximum number of attendees
 
-  // Update progress bar
-  function updateProgressBar() {
-      const count = attendees.length;
-      const percentage = Math.round((count / maxCount) * 100);
-
-      attendanceBar.style.width = percentage + "%";
-      attendanceBar.textContent = `${count} / ${maxCount} Attendees`;
-      attendanceBar.setAttribute("aria-valuenow", count); 
-    }
 
 // Handle form submission
-form.addEventListener("submit", function(event) {
-  event.preventDefault();
+form.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent form from submitting normally
 
-  const name = nameInput.value.trim();
-  const team = teamSelect.value; // "water", "netzero", "renewables"
-  const teamName = teamSelect.options[teamSelect.selectedIndex].text;
+    // Get form values
+    const name = nameInput.value;
+    const team = teamSelect.value;
+    const teamName = teamSelect.selectedOptions[0].text; // Get the text of the selected option
 
-  if (!name || !team) return;
 
-  // Check max
-  if (attendees.length >= maxCount) {
-    alert("Maximum number of attendees reached.");
-    return;
-  }
+    console.log(name, team, teamName); // Log the values to the console (for testing)
 
-  // Add attendee
-  attendees.push({ name, team });
+    // Increment the count
+    count++;
+    console.log("Total check-ins: ", count);
 
-  // Update team counter
-  const teamCounter = document.getElementById(team + "Count");
-  teamCounter.textContent = parseInt(teamCounter.textContent) + 1;
+    // Update progress bar
+    const percentage = Math.round((count / maxCount) * 100) + "%";
+    console.log('Progress: ${percentage}'); // Log the progress percentage to the console (for testing)
 
-  // Update progress bar
-  updateProgressBar();
-
-  // Greeting
-  greetingMessage.textContent = `Welcome, ${name}! You have checked in for the ${teamName} team.`;
-
-  // Reset form
-  form.reset();
+    // Update team counter
+    const teamCounter = document.getElementById(team + "Count");
+    const current = parseInt(teamCounter.textContent) + 1; // Get the current count for the team
+    
 });

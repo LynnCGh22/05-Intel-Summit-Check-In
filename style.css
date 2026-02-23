@@ -801,11 +801,6 @@ a:focus,
   margin: 0 auto;
 }
 
-.progress-bar {
-  font-weight: bold;
-  font-size: 1rem;
-}
-
 .progress {
   width: 100%;
   background-color: #e5e7eb;
@@ -815,11 +810,13 @@ a:focus,
 }
 
 .progress-bar {
+  font-size: 1rem;
   height: 100%;
   width: 0%;
   background-color: #2563eb;
   color: white;
   text-align: center;
   line-height: 30px;
+  font-weight: bold;
   transition: width 0.4s ease;
 }
