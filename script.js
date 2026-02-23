@@ -6,7 +6,7 @@ const attendanceBar = document.getElementById("attendanceBar");
 const greetingMessage = document.getElementById("greetingMessage");
 
 // Attendance tracking
-let attendees = []; 
+let attendees = [];
 const maxCount = 50;
 
 // Update progress bar
@@ -23,9 +23,8 @@ function updateProgressBar() {
 form.addEventListener("submit", function(event) {
   event.preventDefault();
 
-  // Get values
   const name = nameInput.value.trim();
-  const team = teamSelect.value;
+  const team = teamSelect.value; // "water", "netzero", "renewables"
   const teamName = teamSelect.options[teamSelect.selectedIndex].text;
 
   if (!name || !team) return;
@@ -40,13 +39,13 @@ form.addEventListener("submit", function(event) {
   attendees.push({ name, team });
 
   // Update team counter
-  let teamCounter = document.getElementById(team + "Count");
+  const teamCounter = document.getElementById(team + "Count");
   teamCounter.textContent = parseInt(teamCounter.textContent) + 1;
 
   // Update progress bar
   updateProgressBar();
 
-  // Personalized greeting
+  // Greeting
   greetingMessage.textContent = `Welcome, ${name}! You have checked in for the ${teamName} team.`;
 
   // Reset form
