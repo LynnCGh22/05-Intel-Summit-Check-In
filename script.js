@@ -9,15 +9,15 @@ const greetingMessage = document.getElementById("greetingMessage");
 let attendees = [];
 const maxCount = 50;
 
-// Update progress bar
-function updateProgressBar() {
-  const count = attendees.length;
-  const percentage = Math.round((count / maxCount) * 100);
+  // Update progress bar
+  function updateProgressBar() {
+      const count = attendees.length;
+      const percentage = Math.round((count / maxCount) * 100);
 
-  attendanceBar.style.width = percentage + "%";
-  attendanceBar.textContent = `${count} / ${maxCount} Attendees`;
-  attendanceBar.setAttribute("aria-valuenow", count);
-}
+      attendanceBar.style.width = percentage + "%";
+      attendanceBar.textContent = `${count} / ${maxCount} Attendees`;
+      attendanceBar.setAttribute("aria-valuenow", count); 
+    }
 
 // Handle form submission
 form.addEventListener("submit", function(event) {
