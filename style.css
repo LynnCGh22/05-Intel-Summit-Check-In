@@ -47,14 +47,7 @@ body {
     linear-gradient(135deg, #1a0080 0%, #4a148c 25%, #1a237e 50%, #0d47a1 75%, #1a0080 100%);
   background-attachment: fixed;
   background-size: 200% 200%;
-  animation: starTwinkle 4s ease-in-out infinite;
   padding: 20px;
-}
-
-/* STAR TWINKLE */
-@keyframes starTwinkle {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
 }
 
 /* HEADER */
@@ -676,7 +669,7 @@ html[dir="rtl"] .navbar .dropdown {
 }
 
 [data-i18n="impact_title"] {
-    color: lightgreen; /* Light green or mint green accent */
+  color: #003c71; /* Dark blue for better readability */
 }
 
 [data-i18n="grid1_desc"],
@@ -691,7 +684,7 @@ html[dir="rtl"] .navbar .dropdown {
 [data-i18n="impact_title"],
 [data-i18n="global_title"],
 [data-i18n="stats_title"] {
-    color: #00b359; /* AAA green */
+  color: #003c71; /* Dark blue (no neon effect) */
 }
 
 [data-i18n="grid1_title"],
@@ -711,8 +704,8 @@ html[dir="rtl"] .navbar .dropdown {
 
 /* Accordion headers (titles) with neon-green glow */
 .accordion-button span[data-i18n] {
-    color: #7CFC00;                 /* Light neon green */
-    text-shadow: 0 0 6px rgba(124, 252, 0, 0.6);
+  color: #003c71;                 /* Deep Intel blue */
+  text-shadow: none;
 }
 
 /* Make the accordion button background slightly lighter */
@@ -771,8 +764,14 @@ footer p {
 .learn-link:hover {
     color: #66d9ff !important;
 }
+.dropdown-menu {
+  min-width: 220px;
+  font-size: 1.05rem;
+  padding: 8px 0;
+}
+
 .dropdown-item {
-    padding: 12px 16px;
+  padding: 14px 20px;
 }
 
 .nav-link {
