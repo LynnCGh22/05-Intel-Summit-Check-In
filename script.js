@@ -40,7 +40,7 @@ function getTranslatedText(key, fallback, replacements) {
 
   if (replacements && text) {
     Object.keys(replacements).forEach(function (replacementKey) {
-      var token = new RegExp("\\\\{" + replacementKey + "\\\\}", "g");
+      var token = new RegExp("\\{" + replacementKey + "\\}", "g");
       text = text.replace(token, String(replacements[replacementKey]));
     });
   }
