@@ -2027,6 +2027,9 @@ function setLanguage(lang) {
   }
 
   applyTranslations(lang);
+  document.dispatchEvent(
+    new CustomEvent("app-language-changed", { detail: { lang: lang } }),
+  );
 }
 
 // =============================

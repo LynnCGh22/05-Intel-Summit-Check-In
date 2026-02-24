@@ -232,7 +232,8 @@ function renderAttendeeList() {
     li.textContent = a.name;
     var span = document.createElement("span");
     span.className = "attendee-team";
-    span.textContent = a.teamName ? " — " + a.teamName : "";
+    var localizedTeamName = a.team ? getTeamLabel(a.team) : a.teamName;
+    span.textContent = localizedTeamName ? " — " + localizedTeamName : "";
     li.appendChild(span);
     attendeeListEl.appendChild(li);
   }
@@ -449,6 +450,13 @@ function init() {
 
     // Load saved state when script runs
     loadState();
+
+    // Refresh dynamic text when page language changes
+    document.addEventListener("app-language-changed", function () {
+      updateProgressUI();
+      renderAttendeeList();
+      updateCelebrationUI();
+    });
   } catch (err) {
     console.error("Initialization error:", err);
     showFatalError(err && err.message ? err.message : String(err));
