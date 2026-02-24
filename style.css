@@ -669,7 +669,7 @@ html[dir="rtl"] .navbar .dropdown {
 }
 
 [data-i18n="impact_title"] {
-  color: #003c71; /* Dark blue for better readability */
+  color: #f1f8ff; /* Light text for dark page background */
 }
 
 [data-i18n="grid1_desc"],
@@ -684,7 +684,7 @@ html[dir="rtl"] .navbar .dropdown {
 [data-i18n="impact_title"],
 [data-i18n="global_title"],
 [data-i18n="stats_title"] {
-  color: #003c71; /* Dark blue (no neon effect) */
+  color: #f1f8ff; /* Light, readable text without neon */
 }
 
 [data-i18n="grid1_title"],
@@ -708,9 +708,41 @@ html[dir="rtl"] .navbar .dropdown {
   text-shadow: none;
 }
 
-/* Make the accordion button background slightly lighter */
+/* Make accordion areas white and readable */
+.accordion-item {
+  background-color: #ffffff;
+  border: 1px solid #dbe7f3;
+}
+
 .accordion-button {
-    background-color: #f8f9fa;
+  background-color: #ffffff;
+  color: #003c71;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #ffffff;
+  color: #003c71;
+}
+
+.accordion-collapse,
+.accordion-body {
+  background-color: #ffffff;
+}
+
+/* Final readability override for Sustainability Impact accordion */
+#impactAccordion .accordion-item,
+#impactAccordion .accordion-button,
+#impactAccordion .accordion-button:not(.collapsed),
+#impactAccordion .accordion-collapse,
+#impactAccordion .accordion-body {
+  background-color: #ffffff !important;
+}
+
+#impactAccordion .accordion-button,
+#impactAccordion .accordion-button span[data-i18n],
+#impactAccordion .accordion-body {
+  color: #003c71 !important;
+  text-shadow: none !important;
 }
 
 p {
@@ -798,6 +830,12 @@ a:focus,
 #checkInForm {
   max-width: 500px;
   margin: 0 auto;
+}
+
+/* Darker green labels for better readability in check-in form */
+#checkInForm .form-label {
+  color: #2f7d32 !important;
+  font-weight: 600;
 }
 
 .attendance-progress-title {

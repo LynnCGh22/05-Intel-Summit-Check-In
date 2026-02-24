@@ -28,6 +28,26 @@ var STORAGE_KEYS = {
   attendees: "checkin_attendees",
 };
 
+function getTranslatedText(key, fallback, replacements) {
+  var lang = document.documentElement.lang || "en";
+  var dictionary = null;
+
+  if (typeof translations !== "undefined") {
+    dictionary = translations[lang] || translations.en || null;
+  }
+
+  var text = (dictionary && dictionary[key]) || fallback;
+
+  if (replacements && text) {
+    Object.keys(replacements).forEach(function (replacementKey) {
+      var token = new RegExp("\\\\{" + replacementKey + "\\\\}", "g");
+      text = text.replace(token, String(replacements[replacementKey]));
+    });
+  }
+
+  return text;
+}
+
 // Surface fatal errors to the page for easier debugging
 function showFatalError(msg) {
   try {
@@ -75,9 +95,12 @@ function saveState() {
 
 // Convert team key to friendly team name
 function getTeamLabel(teamKey) {
-  if (teamKey === "water") return "Team Water Wise";
-  if (teamKey === "netzero") return "Team Net Zero";
-  if (teamKey === "renewables") return "Team Renewables";
+  if (teamKey === "water")
+    return getTranslatedText("checkin_team_water", "Team Water Wise");
+  if (teamKey === "netzero")
+    return getTranslatedText("checkin_team_netzero", "Team Net Zero");
+  if (teamKey === "renewables")
+    return getTranslatedText("checkin_team_renewables", "Team Renewables");
   return teamKey;
 }
 
@@ -115,13 +138,17 @@ function updateCelebrationUI() {
 
   if (count >= maxCount) {
     var winnerInfo = getWinningTeamInfo();
-    var winnerLabel = winnerInfo.isTie ? "Winning teams" : "Winning team";
+    var winnerLabel = winnerInfo.isTie
+      ? getTranslatedText("checkin_winning_teams", "Winning teams")
+      : getTranslatedText("checkin_winning_team", "Winning team");
 
     celebrationMessageEl.innerHTML =
-      "🎉 Goal reached! " +
+      "🎉 " +
+      getTranslatedText("checkin_goal_reached", "Goal reached!") +
+      " " +
       winnerLabel +
       ': <span class="winner-name">' +
-      (winnerInfo.winnerText || "No team yet") +
+      (winnerInfo.winnerText || getTranslatedText("checkin_no_team", "No team yet")) +
       "</span>";
 
     celebrationMessageEl.classList.add("show");
@@ -171,7 +198,10 @@ function resetAllData() {
 
   var greeting = document.getElementById("greeting");
   if (greeting) {
-    greeting.textContent = "Counter reset. You can check in again.";
+    greeting.textContent = getTranslatedText(
+      "checkin_reset_message",
+      "Counter reset. You can check in again.",
+    );
     greeting.classList.add("success-message", "greeting-show");
   }
 
@@ -187,7 +217,10 @@ function renderAttendeeList() {
   if (attendees.length === 0) {
     var emptyLi = document.createElement("li");
     emptyLi.className = "list-group-item text-muted";
-    emptyLi.textContent = "No attendees yet.";
+    emptyLi.textContent = getTranslatedText(
+      "checkin_empty_list",
+      "No attendees yet.",
+    );
     attendeeListEl.appendChild(emptyLi);
     return;
   }
@@ -212,7 +245,11 @@ function updateProgressUI() {
     var percentage = Math.round((count / maxCount) * 100) + "%";
     progressBar.style.width = percentage;
     progressBar.setAttribute("aria-valuenow", String(count));
-    progressBar.textContent = count + " / " + maxCount + " Attendees";
+    progressBar.textContent = getTranslatedText(
+      "checkin_attendee_progress_text",
+      "{count} / {max} Attendees",
+      { count: count, max: maxCount },
+    );
   }
 }
 
@@ -300,8 +337,10 @@ function init() {
       if (count >= maxCount) {
         const greetingFull = document.getElementById("greeting");
         if (greetingFull) {
-          greetingFull.textContent =
-            "Sorry — capacity reached. Check-in is closed.";
+          greetingFull.textContent = getTranslatedText(
+            "checkin_capacity_closed",
+            "Sorry — capacity reached. Check-in is closed.",
+          );
           greetingFull.classList.add("success-message", "greeting-show");
           setTimeout(function () {
             greetingFull.classList.remove("greeting-show");
@@ -359,7 +398,11 @@ function init() {
       });
 
       // Welcome message
-      const message = `Thanks, ${name}! You are registered for ${teamName}.`;
+      const message = getTranslatedText(
+        "checkin_thanks_message",
+        "Thanks, {name}! You are registered for {team}.",
+        { name: name, team: teamName },
+      );
       console.log(message);
 
       // Show greeting/confirmation to user
@@ -383,7 +426,11 @@ function init() {
         if (nameInput) nameInput.disabled = true;
         if (teamSelect) teamSelect.disabled = true;
         if (greeting) {
-          greeting.textContent = `Capacity reached — ${count}/${maxCount}. Check-in closed.`;
+          greeting.textContent = getTranslatedText(
+            "checkin_capacity_reached_message",
+            "Capacity reached — {count}/{max}. Check-in closed.",
+            { count: count, max: maxCount },
+          );
           greeting.classList.add("success-message", "greeting-show");
         }
       }

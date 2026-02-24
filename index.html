@@ -287,8 +287,8 @@
     Sustainability Impact Areas 
   </h2> 
   
-  <div class="accordion" id="impactAccordion"></div>
-    <!--Climate Action-->
+  <div class="accordion" id="impactAccordion">
+    <!-- Climate Action -->
     <div class="accordion-item"> 
       <h2 class="accordion-header"> 
         <button class="accordion-button" 
@@ -298,13 +298,14 @@
           <span data-i18n="impact_climate">Climate Action</span> 
         </button> 
       </h2> 
-      <div id="impact1" class="accordion-collapse collapse show" data-bs-parent="#impactAccordion">   <div class="accordion-body" data-i18n="impact_climate_desc"> Intel is committed to achieving net-zero greenhouse gas emissions by 2040. 
-
+      <div id="impact1" class="accordion-collapse collapse show" data-bs-parent="#impactAccordion">
+        <div class="accordion-body" data-i18n="impact_climate_desc">
+          Intel is committed to achieving net-zero greenhouse gas emissions by 2040.
+        </div>
       </div> 
-    </div> 
-  </div>
+    </div>
     
-    <!--Renewable energy-->
+    <!-- Renewable Energy -->
     <div class="accordion-item"> 
       <h2 class="accordion-header"> 
         <button class="accordion-button collapsed" 
@@ -314,13 +315,14 @@
           <span data-i18n="impact_energy">Renewable Energy</span> 
         </button> 
       </h2> 
-      <div id="impact2" class="accordion-collapse collapse" data-bs-parent="#impactAccordion"> <div class="accordion-body" data-i18n="impact_energy_desc"> Increasing global renewable electricity usage across manufacturing facilities. 
-
+      <div id="impact2" class="accordion-collapse collapse" data-bs-parent="#impactAccordion">
+        <div class="accordion-body" data-i18n="impact_energy_desc">
+          Increasing global renewable electricity usage across manufacturing facilities.
+        </div>
       </div> 
-    </div> 
-  </div>
+    </div>
 
-    <!--Water Stewardship-->
+    <!-- Water Stewardship -->
     <div class="accordion-item"> 
       <h2 class="accordion-header"> 
         <button class="accordion-button collapsed" 
@@ -330,13 +332,13 @@
           <span data-i18n="impact_water">Water Stewardship</span> 
         </button> 
       </h2> 
-      <div id="impact3" class="accordion-collapse collapse" data-bs-parent="#impactAccordion"> <div class="accordion-body" data-i18n="impact_water_desc"> Conserving billions of gallons of water through advanced recycling systems. 
-
+      <div id="impact3" class="accordion-collapse collapse" data-bs-parent="#impactAccordion">
+        <div class="accordion-body" data-i18n="impact_water_desc">
+          Conserving billions of gallons of water through advanced recycling systems.
+        </div>
       </div> 
-    </div> 
+    </div>
   </div>
-
-</div>
 </section>
 
 <section class="container my-5">
@@ -506,35 +508,35 @@
   <div class="row justify-content-center">
     <div class="col-lg-10">
       <div class="p-5 border rounded shadow bg-light">
-        <h2 class="text-center mb-4 fw-bold text-dark">Intel's Sustainability Summit Sign-Up Form</h2>
+        <h2 class="text-center mb-4 fw-bold text-dark" data-i18n="checkin_signup_title">Intel's Sustainability Summit Sign-Up Form</h2>
 
-        <h3 class="text-center mb-4">Choose Your Team</h3>
+        <h3 class="text-center mb-4" data-i18n="checkin_choose_team">Choose Your Team</h3>
         <div class="row g-4">
 
           <!-- Team Water Wise -->
           <div class="col-md-4">
             <div class="p-4 h-100 border rounded bg-primary bg-opacity-25 shadow-sm text-center">
-              <h4>Team Water Wise</h4>
-              <p>Focused on water conservation and restoration efforts.</p>
-              <p><strong>Members: <span id="waterCount">0</span></strong></p>
+              <h4 data-i18n="checkin_team_water">Team Water Wise</h4>
+              <p data-i18n="checkin_team_water_desc">Focused on water conservation and restoration efforts.</p>
+              <p><strong><span data-i18n="checkin_members_label">Members</span>: <span id="waterCount">0</span></strong></p>
             </div>
           </div>
 
           <!-- Team Net Zero -->
           <div class="col-md-4">
             <div class="p-4 h-100 border rounded bg-success bg-opacity-25 shadow-sm text-center">
-              <h4>Team Net Zero</h4>
-              <p>Committed to reducing carbon emissions and achieving net-zero goals.</p>
-              <p><strong>Members: <span id="netzeroCount">0</span></strong></p>
+              <h4 data-i18n="checkin_team_netzero">Team Net Zero</h4>
+              <p data-i18n="checkin_team_netzero_desc">Committed to reducing carbon emissions and achieving net-zero goals.</p>
+              <p><strong><span data-i18n="checkin_members_label">Members</span>: <span id="netzeroCount">0</span></strong></p>
             </div>
           </div>
 
           <!-- Team Renewables -->
           <div class="col-md-4">
             <div class="p-4 h-100 border rounded bg-info bg-opacity-25 shadow-sm text-center">
-              <h4>Team Renewables</h4>
-              <p>Advancing renewable energy adoption and innovation.</p>
-              <p><strong>Members: <span id="renewablesCount">0</span></strong></p>
+              <h4 data-i18n="checkin_team_renewables">Team Renewables</h4>
+              <p data-i18n="checkin_team_renewables_desc">Advancing renewable energy adoption and innovation.</p>
+              <p><strong><span data-i18n="checkin_members_label">Members</span>: <span id="renewablesCount">0</span></strong></p>
             </div>
           </div>
         </div>
@@ -543,31 +545,31 @@
         <div class="row mt-4">
           <div class="col-12">
             <div class="p-3 border rounded bg-light shadow-sm">
-              <h5 class="mb-3">Registered Attendees</h5>
+              <h5 class="mb-3" data-i18n="checkin_registered_attendees">Registered Attendees</h5>
               <!-- JavaScript will add each attendee as: Name — Team -->
               <ul id="attendeeList" class="list-group"></ul>
             </div>
           </div>
         </div>
 
-        <h3 class="text-center my-4">Attendee Check‑In</h3>
+        <h3 class="text-center my-4" data-i18n="checkin_attendee_heading">Attendee Check‑In</h3>
         <form id="checkInForm" class="p-4 border rounded bg-light shadow-sm">
           <div class="mb-3">
-            <label for="attendeeName" class="form-label">Full Name</label>
+            <label for="attendeeName" class="form-label" data-i18n="checkin_full_name">Full Name</label>
             <input type="text" id="attendeeName" class="form-control" required>
           </div>
 
           <div class="mb-3">
-            <label for="teamSelect" class="form-label">Select Your Team</label>
+            <label for="teamSelect" class="form-label" data-i18n="checkin_select_team">Select Your Team</label>
             <select id="teamSelect" class="form-select" required>
-              <option value="" disabled selected>Choose a team...</option>
-              <option value="water">Team Water Wise</option>
-              <option value="netzero">Team Net Zero</option>
-              <option value="renewables">Team Renewables</option>
+              <option value="" disabled selected data-i18n="checkin_choose_team_option">Choose a team...</option>
+              <option value="water" data-i18n="checkin_team_water">Team Water Wise</option>
+              <option value="netzero" data-i18n="checkin_team_netzero">Team Net Zero</option>
+              <option value="renewables" data-i18n="checkin_team_renewables">Team Renewables</option>
             </select>
           </div>
 
-          <button type="submit" id="checkInBtn" class="btn btn-primary w-100">Check In</button>
+          <button type="submit" id="checkInBtn" class="btn btn-primary w-100" data-i18n="checkin_submit">Check In</button>
 
           <!-- Friendly status message after check-in -->
           <p id="greeting" class="mt-3 mb-0 text-center"></p>
@@ -577,10 +579,10 @@
   </div>
 </section>
 
-<h3 class="attendance-progress-title">Attendance Progress</h3>
+<h3 class="attendance-progress-title" data-i18n="checkin_progress_title">Attendance Progress</h3>
 
 <p class="text-center text-white">
-  Total Registered: <strong><span id="attendeeCount">0</span> / 50</strong>
+  <span data-i18n="checkin_total_registered">Total Registered</span>: <strong><span id="attendeeCount">0</span> / 50</strong>
 </p>
 
 <div class="progress-container">
@@ -597,7 +599,7 @@
 
 <div class="text-center mt-3">
   <!-- Simple reset button for testing/demo -->
-  <button id="resetCounterBtn" type="button" class="btn btn-outline-light">
+  <button id="resetCounterBtn" type="button" class="btn btn-outline-light" data-i18n="checkin_reset_button">
     Reset Counter
   </button>
 </div>
