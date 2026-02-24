@@ -515,10 +515,12 @@ header img {
 .logo-item p {
   font-size: 14px;
   margin-top: 8px;
+  color: #ffffff;
 }
 
 .logo-years {
   font-size: 12px;
+  color: #ffffff;
   opacity: 0.7;
   display: block;
   margin-top: 4px;
@@ -796,6 +798,36 @@ footer p {
 .learn-link:hover {
     color: #66d9ff !important;
 }
+
+/* Highlight the Innovation modal button so it is easier to spot */
+button[data-i18n="innovation_button"] {
+  background-color: #ffb703;
+  border-color: #ffb703;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+button[data-i18n="innovation_button"]:hover,
+button[data-i18n="innovation_button"]:focus {
+  background-color: #ffd166;
+  border-color: #ffd166;
+  color: #111827;
+}
+
+button[data-i18n="innovation_button"]:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 183, 3, 0.35);
+}
+
+/* Make Innovation modal text darker and readable */
+#innovationModal .modal-content {
+  color: #1f2937;
+}
+
+#innovationModal .modal-title,
+#innovationModal .modal-body {
+  color: #1f2937 !important;
+}
+
 .dropdown-menu {
   min-width: 220px;
   font-size: 1.05rem;
